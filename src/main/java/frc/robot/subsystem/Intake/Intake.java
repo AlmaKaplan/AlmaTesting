@@ -26,7 +26,7 @@ public class Intake extends SubsystemBase {
   private TalonFXConfiguration motorCunfigo;
   private DigitalInput sensor;
 
-  private StatusSignal<Current> currentDrwe;
+  private StatusSignal<Current> currentDraw;
   private StatusSignal<AngularVelocity> velocity;
   private StatusSignal<Temperature> motorTemp;
   private StatusSignal<Voltage> appliedVoltage;
@@ -37,11 +37,11 @@ public class Intake extends SubsystemBase {
   private Intake() {
 
     shufflBord = new MAShuffleboard("Intake");
-    motor = new TalonFX(PortMap.Intake.MOTOR);
-    sensor = new DigitalInput(PortMap.Intake.SENSOR);
+    motor = new TalonFX(PortMap.Intake.INTAKE_MOTOR);
+    sensor = new DigitalInput(PortMap.Intake.INTAKE_SENSOR);
     motorCunfigo = new TalonFXConfiguration();
 
-    currentDrwe = motor.getSupplyCurrent();
+    currentDraw = motor.getSupplyCurrent();
     velocity =  motor.getVelocity();
     motorTemp = motor.getDeviceTemp();
     appliedVoltage = motor.getMotorVoltage();
@@ -74,9 +74,33 @@ public class Intake extends SubsystemBase {
     return sensor.get();
   }
 
-  public double getCurrentDrwe() {
-    currentDrwe.refresh();
-    return currentDrwe.getValueAsDouble();
+  public double getCurrentDraw() {
+    currentDraw.refresh();
+    return currentDraw.getValueAsDouble();
+  }
+
+
+  public double getVelocity() {
+    velocity.refresh();
+    return velocity.getValueAsDouble();
+  }
+
+
+  public double getMotorTemp() {
+    motorTemp.refresh();
+    return motorTemp.getValueAsDouble();
+  }
+
+
+  public double getAppliedVoltage() {
+    appliedVoltage.refresh();
+    return appliedVoltage.getValueAsDouble();
+  }
+
+
+  public double getPosition() {
+    position.refresh();
+    return position.getValueAsDouble();
   }
 
 
@@ -89,6 +113,12 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
+    shufflBord.addBoolean("is game peice ", IsGamePeice());
+    shufflBord.addNum("motor voltage", getAppliedVoltage());
+    shufflBord.addNum("motor position", getPosition());
+    shufflBord.addNum("current draw", getCurrentDraw());
+    shufflBord.addNum("motor temp", getMotorTemp());
+    shufflBord.addNum("velocity", getVelocity());
 
   }
 }
