@@ -64,6 +64,8 @@ public class Intake extends SubsystemBase {
 
     motorCunfigo.Voltage.PeakForwardVoltage = 12;
     motorCunfigo.Voltage.PeakReverseVoltage = -12;
+
+    motor.getConfigurator().apply(motorCunfigo);
   }
 
   public void setVoltage(double Volt) {
