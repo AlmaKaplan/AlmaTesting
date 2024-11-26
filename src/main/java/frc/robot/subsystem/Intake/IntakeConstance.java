@@ -2,9 +2,10 @@
 package frc.robot.subsystem.Intake;
 
 public class IntakeConstance {
-    public static final double INTAKE_VOLTAGE = 8;
+    public static final double INTAKE_IN_VOLTAGE = 8;
+    public static final double INTAKE_OUT_VOLTAGE = -7;
 
-    public static final double GEAR = 1/2;
+    public static final double INTAKE_GEAR = 3.66;
 
     public static final boolean ENABLE_CURRENT_LIMIT = true;
     public static final double CURRENT_LIMIT = 40;
