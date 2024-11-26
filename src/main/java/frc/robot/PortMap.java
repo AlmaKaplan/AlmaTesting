@@ -13,6 +13,10 @@ public class PortMap {
         public static final int TRANSFER_SENSOR1 = 1;
         public static final int TRANSFER_SENSOR2 = 2;
         public static final int TRANSFER_SENSOR3 = 3;
+    }
 
+    public class Shooter {
+        public static final int SHOOTER_MOTOR_L = 10;
+        public static final int SHOOTER_MOTOR_R = 11;
     }
 }

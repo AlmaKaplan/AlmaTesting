@@ -54,10 +54,11 @@ public class Intake extends SubsystemBase {
 
 
 
-    Cunfig();
+    CunfigLeft();
+    CunfigRight();
   }
 
-  private void Cunfig() {
+  private void CunfigLeft() {
     motorCunfig.Feedback.RotorToSensorRatio = IntakeConstance.INTAKE_GEAR;
 
     motorCunfig.CurrentLimits.SupplyCurrentLimitEnable = IntakeConstance.ENABLE_CURRENT_LIMIT;
@@ -72,12 +73,28 @@ public class Intake extends SubsystemBase {
     motorCunfig.Voltage.PeakReverseVoltage = -12;
 
     motorL.getConfigurator().apply(motorCunfig);
+  }
+
+  private void CunfigRight() {
+    motorCunfig.Feedback.RotorToSensorRatio = IntakeConstance.INTAKE_GEAR;
+
+    motorCunfig.CurrentLimits.SupplyCurrentLimitEnable = IntakeConstance.ENABLE_CURRENT_LIMIT;
+    motorCunfig.CurrentLimits.SupplyCurrentLimit = IntakeConstance.CURRENT_LIMIT;
+    motorCunfig.CurrentLimits.SupplyCurrentLowerLimit = IntakeConstance.CONTINOUS_POWER_LIMIT;
+    motorCunfig.CurrentLimits.SupplyCurrentLowerTime = IntakeConstance.CONTINOUS_POWER_DURATION;
+
+    motorCunfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    motorCunfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+
+    motorCunfig.Voltage.PeakForwardVoltage = 12;
+    motorCunfig.Voltage.PeakReverseVoltage = -12;
+
     motorR.getConfigurator().apply(motorCunfig);
   }
 
   public void setInVoltage(double Volt) {
     motorL.setVoltage(Volt);
-    motorR.setVoltage(-Volt);
+    motorR.setVoltage(Volt);
   }
 
   public double getLeftMotorCurrentDraw() {
