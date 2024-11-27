@@ -6,6 +6,8 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.ma5951.utils.DashBoard.MAShuffleboard;
+import com.ma5951.utils.Utils.ConvUtil;
 
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -17,6 +19,8 @@ import frc.robot.PortMap;
 
 public class Shooter extends SubsystemBase {
   public static Shooter shooter;
+
+  private MAShuffleboard board;
 
   private TalonFX motor_R;
   private TalonFX motor_L;
@@ -51,6 +55,8 @@ public class Shooter extends SubsystemBase {
     motorTempMotor_R = motor_R.getDeviceTemp();
     appliedVoltageMotor_R = motor_R.getMotorVoltage();
     positionMotor_R = motor_R.getPosition();
+
+    board = new MAShuffleboard("Shooter");
 
 
     Motor_L_Config();
@@ -102,7 +108,7 @@ public class Shooter extends SubsystemBase {
 
   public double getLeftMotorVelocity() {
     velocityMotor_L.refresh();
-    return velocityMotor_L.getValueAsDouble();
+    return ConvUtil.RPStoRPM(velocityMotor_L.getValueAsDouble());
   }
 
 
@@ -131,7 +137,7 @@ public class Shooter extends SubsystemBase {
 
   public double getRightMotorVelocity() {
     velocityMotor_R.refresh();
-    return velocityMotor_R.getValueAsDouble();
+    return ConvUtil.RPStoRPM(velocityMotor_R.getValueAsDouble());
   }
 
 
@@ -163,6 +169,7 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-
+    board.addNum("Shooter left motor speed", getLeftMotorVelocity());
+    board.addNum("Shhoter right motor speed", getRightMotorVelocity());
   }
 }
