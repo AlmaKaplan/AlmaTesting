@@ -11,4 +11,5 @@ public class ShooterConstance {
 
     
     public static final double SHOOTING_VOLTAGE = 10;
+    public static final double IJECT_VOLTAGE = 6;
 }

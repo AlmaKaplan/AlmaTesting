@@ -4,6 +4,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commends.TankDriveCommand.DriveTankAutonomous;
+import frc.robot.commends.TankDriveCommand.TankDriveON;
+import frc.robot.subsystem.DriveTank.DriveTank;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -32,6 +35,9 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+
+    new DriveTankAutonomous();
+
   }
 
   @Override
@@ -42,6 +48,9 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    CommandScheduler.getInstance().setDefaultCommand
+      (DriveTank.getInstance(), new TankDriveON(() -> RobotContainer.controller.getLeftY(), () -> RobotContainer.controller.getRightY()));
   }
 
   @Override

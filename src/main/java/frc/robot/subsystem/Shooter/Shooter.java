@@ -40,8 +40,8 @@ public class Shooter extends SubsystemBase {
 
 
   private Shooter() {
-    motor_R = new TalonFX(PortMap.Shooter.SHOOTER_MOTOR_R);
-    motor_L = new TalonFX(PortMap.Shooter.SHOOTER_MOTOR_L);
+    motor_R = new TalonFX(PortMap.ShooterPorts.SHOOTER_MOTOR_R);
+    motor_L = new TalonFX(PortMap.ShooterPorts.SHOOTER_MOTOR_L);
     motorConfig = new TalonFXConfiguration();
 
     currentDrawMotor_L = motor_L.getSupplyCurrent();
@@ -156,6 +156,13 @@ public class Shooter extends SubsystemBase {
   public double getRightMotorPosition() {
     positionMotor_R.refresh();
     return positionMotor_R.getValueAsDouble();
+  }
+
+  public boolean shooterSpeed() {
+    if (getLeftMotorVelocity()< 400 || getRightMotorVelocity() <400 ) {
+      return false;
+    }
+    return true;
   }
 
   public static Shooter getInstance() {

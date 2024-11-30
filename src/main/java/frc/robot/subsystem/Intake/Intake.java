@@ -36,8 +36,8 @@ public class Intake extends SubsystemBase {
 
   private Intake() {
 
-    motorL = new TalonFX(PortMap.Intake.INTAKE_MOTOR_L);
-    motorR = new TalonFX(PortMap.Intake.INTAKE_MOTOR_R);
+    motorL = new TalonFX(PortMap.IntakePorts.INTAKE_MOTOR_L);
+    motorR = new TalonFX(PortMap.IntakePorts.INTAKE_MOTOR_R);
 
     currentDrawMotorL = motorL.getSupplyCurrent();
     velocityMotorL =  motorL.getVelocity();
@@ -51,6 +51,7 @@ public class Intake extends SubsystemBase {
     appliedVoltageMotorR = motorR.getMotorVoltage();
     positionMotorR = motorR.getPosition();
     motorCunfig = new TalonFXConfiguration();
+
 
 
 
@@ -92,10 +93,14 @@ public class Intake extends SubsystemBase {
     motorR.getConfigurator().apply(motorCunfig);
   }
 
-  public void setInVoltage(double Volt) {
+  public void setVoltage(double Volt) {
     motorL.setVoltage(Volt);
     motorR.setVoltage(Volt);
   }
+
+// I dont need Intake in and out because the voltage are negitive and positive :)
+
+
 
   public double getLeftMotorCurrentDraw() {
     currentDrawMotorL.refresh();

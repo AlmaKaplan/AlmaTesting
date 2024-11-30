@@ -35,23 +35,22 @@ public class Transfer extends SubsystemBase {
   private StatusSignal<Voltage> appliedVoltageMotor;
   private StatusSignal<Angle> positionMotor;
 
-  private double counter1;
-  private double counter2;
-  private double counter3;
   private double counter;
 
 
   private Transfer() {
-    motor = new TalonFX(PortMap.Transfer.TRANSFER_MOTOR);
+    motor = new TalonFX(PortMap.TransferPorts.TRANSFER_MOTOR);
+
+    firstSensor = new DigitalInput(PortMap.TransferPorts.TRANSFER_SENSOR1);
+    secondSsensor = new DigitalInput(PortMap.TransferPorts.TRANSFER_SENSOR2);
+    thirdSSensor = new DigitalInput(PortMap.TransferPorts.TRANSFER_SENSOR3);
 
     currentDrawMotor = motor.getSupplyCurrent();
     velocityMotor =  motor.getVelocity();
     motorTempMotor = motor.getDeviceTemp();
     appliedVoltageMotor = motor.getMotorVoltage();
     positionMotor = motor.getPosition();
-    counter1 = 0;
-    counter2 = 0;
-    counter3 = 0;
+
     counter = 0;
     board = new MAShuffleboard("Transfer");
 
@@ -81,41 +80,19 @@ public class Transfer extends SubsystemBase {
     motor.setVoltage(volt);
   }
 
-  public void getFirstGamepiece() {
-    if(firstSensor.get()){
-      if(counter1 == 0){
-        counter1++;
-      } 
-    } else {
-      counter1 = 0;
+  public double BallCounter() {
+    counter = 0;
+    if (firstSensor.get()) {
+      counter++;
     }
-  }
-
-  public void getSecondGamepiece() {
-    if(secondSsensor.get()){
-      if(counter2 == 0){
-        counter2++;
-      } 
-    } else {
-      counter2 = 0;
+    if (secondSsensor.get()) {
+      counter++;
     }
-  }
-
-  public void getThirdGamepiece() {
-    if(thirdSSensor.get()){
-      if(counter3 == 0){
-        counter3++;
-      } 
-    } else {
-      counter3 = 0;
+    if (thirdSSensor.get()) {
+      counter++;
     }
-  }
-
-  public double getAmountGamePiece(){
-    counter = counter1 + counter2 + counter3;
     return counter;
   }
-
 
   public double getCurrentDraw() {
     currentDrawMotor.refresh();
@@ -157,6 +134,6 @@ public class Transfer extends SubsystemBase {
   
   @Override
   public void periodic() {
-    board.addNum("Amount Of game piece", getAmountGamePiece());
+    board.addNum("Amount Of game piece", BallCounter());
   }
 }
