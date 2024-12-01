@@ -253,14 +253,18 @@ public class DriveTank extends SubsystemBase {
     return positionMotorRB.getValueAsDouble();
   }
 
-  public double SpeedCalculationRight(){
-    double x = getRightBackMotorVelocity() * DriveTankConstance.RIVE_TANK_WHEEL_SIZE_IN_M;
-    return x;
+  public boolean SpeedCalculationRight(){
+    if (DriveTankConstance.ROUND_FOR_0POINT5_METER >= getRightBackMotorVelocity()) {
+      return true;
+    }
+    return false;
   }
 
-  public double SpeedCalculationLeft(){
-    double x = getLefBacktMotorVelocity() * DriveTankConstance.RIVE_TANK_WHEEL_SIZE_IN_M;
-    return x;
+  public boolean SpeedCalculationLeft(){
+    if (DriveTankConstance.ROUND_FOR_0POINT5_METER >= getLefBacktMotorVelocity()) {
+      return true;
+    }
+    return false;
   }
 
 

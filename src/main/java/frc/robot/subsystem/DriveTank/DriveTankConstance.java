@@ -6,6 +6,7 @@ public class DriveTankConstance {
     public static final double DRIVE_TANK_GEAR = 5.66;
     public static final double DRIVE_TANK_WHEEL_SIZE = 4; // INCH 
     public static final double RIVE_TANK_WHEEL_SIZE_IN_M = 0.1016;
+    public static final double ROUND_FOR_0POINT5_METER = 0.5 / RIVE_TANK_WHEEL_SIZE_IN_M ;
 
     public static final boolean ENABLE_CURRENT_LIMIT = true;
     public static final double CURRENT_LIMIT = 40;

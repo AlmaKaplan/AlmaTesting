@@ -13,7 +13,7 @@ import frc.robot.subsystem.Transfer.TransferConstance;
 public class ShootingAutimation extends SequentialCommandGroup {
 
   public ShootingAutimation() {
-    if (DriveTank.getInstance().SpeedCalculationLeft() > 0.5 && DriveTank.getInstance().SpeedCalculationRight() >0.5){
+    if (DriveTank.getInstance().SpeedCalculationLeft() && DriveTank.getInstance().SpeedCalculationRight()){
       if (Transfer.getInstance().BallCounter() <3){
         addCommands(new IntakeAutomation());
       }
